@@ -3,14 +3,26 @@
 import PySimpleGUI as sg
 import pyttsx3
 
+#Setting up layout
+first_column = [
+    [sg.Text("Enter the text you want to TTS: ")],
+    [sg.Input(s=25)],
+    [sg.Button("TTS", key="TTSButtonPressed"), sg.Button("Exit", key="Exit")]
+    ]
+
+second_column = [
+    [sg.Text("Volume:")],
+    [sg.Slider((0,10), orientation='v', key="VolumeChanged")]
+    ]
+
 #Initialize Window
 sg.theme("DarkAmber")
 window = sg.Window(title="TTSForDisord", layout=[
-  [sg.Text("Enter the text you want to TTS: ")],
-  [sg.Input(s=25)],
-  [sg.Button("TTS", key="TTSButtonPressed"), sg.Button("Exit", key="Exit")]
-  ], 
-  margins=(200,150))
+  [sg.Column(first_column),
+  sg.VSeparator(pad=(0,0)),
+  sg.Column(second_column)]
+],
+margins=(150,100))
 
 #Initialize TTS
 engine = pyttsx3.init()
