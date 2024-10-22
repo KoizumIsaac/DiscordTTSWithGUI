@@ -12,8 +12,8 @@ first_column = [
 
 second_column = [
     [sg.Text("Volume:")],
-    [sg.Slider((0,10), orientation='v', key="VolumeChanged")]
-    ]
+    [sg.Slider((0,10), default_value=5, orientation='v', key="VolumeChanged", enable_events=True)]
+    ] 
 
 #Initialize Window
 sg.theme("DarkAmber")
@@ -26,17 +26,22 @@ margins=(150,100))
 
 #Initialize TTS
 engine = pyttsx3.init()
+engine.setProperty("volume", 0.5)
+engine.setProperty("Rate",0.5)
+engine.setProperty("voice", engine.getProperty("voices")[1].id)
 
 #Event Loop
 while True:
   event, values = window.read()
-  # sg.Print(event, values)
   if event == sg.WIN_CLOSED or event == "Exit":
     break
   if event == "TTSButtonPressed":
-     engine.say(values[0])
-     engine.runAndWait()
+    engine.say(values[0])
+    engine.runAndWait()
+  if event == "VolumeChanged":
+    engine.setProperty('volume', values["VolumeChanged"]/10)
 
 # Close the window
 window.close()
+engine.stop()
 exit()
