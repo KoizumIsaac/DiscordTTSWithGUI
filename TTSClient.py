@@ -1,5 +1,4 @@
 #TTSClient.py
-
 import PySimpleGUI as sg
 import pyttsx3
 import sounddevice as sd
