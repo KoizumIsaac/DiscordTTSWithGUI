@@ -37,8 +37,11 @@ engine.setProperty("volume", 0.5)
 engine.setProperty("Rate",200)
 engine.setProperty("voice", engine.getProperty("voices")[1].id)
 
-#Get the audio device.
-devices = (sd.default.device[0],"CABLE Input (VB-Audio Virtual Cable), Windows DirectSound")
+try:
+  #Get the audio device.
+  devices = (sd.default.device[0],"CABLE Input (VB-Audio Virtual Cable), Windows DirectSound")
+except Exception as e:
+  sg.popup_error("Could not find the virtual audio cable. Is it installed?")
 
 #Event Loop
 while True:
