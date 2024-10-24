@@ -5,7 +5,10 @@ import pyttsx3
 import sounddevice as sd
 import soundfile as sf
 
-devices = (sd.default.device[0],"CABLE Input (VB-Audio Virtual Cable), Windows DirectSound")
+def text_to_speech(text):
+  engine.say(text)
+  engine.save_to_file(text, "temp_speech.wav")
+  engine.runAndWait()
 
 #Setting up layout
 first_column = [
@@ -34,10 +37,8 @@ engine.setProperty("volume", 0.5)
 engine.setProperty("Rate",200)
 engine.setProperty("voice", engine.getProperty("voices")[1].id)
 
-def text_to_speech(text):
-  engine.say(text)
-  engine.save_to_file(text, "temp_speech.wav")
-  engine.runAndWait()
+#Get the audio device.
+devices = (sd.default.device[0],"CABLE Input (VB-Audio Virtual Cable), Windows DirectSound")
 
 #Event Loop
 while True:
