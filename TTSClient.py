@@ -31,7 +31,7 @@ margins=(150,100))
 #Initialize TTS
 engine = pyttsx3.init()
 engine.setProperty("volume", 0.5)
-engine.setProperty("Rate",2)
+engine.setProperty("Rate",200)
 engine.setProperty("voice", engine.getProperty("voices")[1].id)
 
 def text_to_speech(text):
