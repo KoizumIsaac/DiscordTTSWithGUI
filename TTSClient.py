@@ -21,7 +21,7 @@ second_column = [
 
 #Initialize Window
 sg.theme("DarkAmber")
-window = sg.Window(title="TTSForDisord", layout=[
+window = sg.Window(title="TTSForDiscord", layout=[
   [sg.Column(first_column),
   sg.VSeparator(pad=(0,0)),
   sg.Column(second_column)]
