@@ -4,7 +4,6 @@ import PySimpleGUI as sg
 import pyttsx3
 import sounddevice as sd
 
-
 #Setting up layout
 first_column = [
     [sg.Text("Enter the text you want to TTS: ")],
@@ -32,14 +31,22 @@ engine.setProperty("volume", 0.5)
 engine.setProperty("Rate",0.5)
 engine.setProperty("voice", engine.getProperty("voices")[1].id)
 
+
+
+audio_cable = sd.query_devices()[3]
+
+def text_to_speech(text):
+  engine.say(text)
+  engine.save_to_file(text, "tempSpeech.wav")
+  engine.runAndWait()
+
 #Event Loop
 while True:
   event, values = window.read()
   if event == sg.WIN_CLOSED or event == "Exit":
     break
   if event == "TTSButtonPressed":
-    engine.say(values[0])
-    engine.runAndWait()
+    text_to_speech(values[0])
   if event == "VolumeChanged":
     engine.setProperty('volume', values["VolumeChanged"]/10)
 
