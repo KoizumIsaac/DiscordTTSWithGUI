@@ -36,12 +36,16 @@ engine.setProperty("volume", 0.5)
 engine.setProperty("Rate",200)
 engine.setProperty("voice", engine.getProperty("voices")[1].id)
 
-try:
-  #Get the audio device.
-  devices = (sd.default.device[0],"CABLE Input (VB-Audio Virtual Cable), Windows DirectSound")
-except Exception as e:
-  sg.popup_error("Could not find the virtual audio cable. Is it installed?")
-
+def check_audio_devices():
+  audio_devices = sd.query_devices();
+  for i, device in enumerate(audio_devices):
+    if("CABLE Output" in device["name"]):
+      return
+  
+  #Could not find audio device, so close the window.
+  sg.popup_error("Could not find virtual audio cable. Is it installed?")
+  window.close()
+  
 #Event Loop
 while True:
   event, values = window.read()
@@ -50,7 +54,8 @@ while True:
   if event == "TTSButtonPressed":
     text_to_speech(values[0])
     data, samplerate = sf.read("temp_speech.wav", dtype = 'float32')
-    sd.play(data, 20000, device=devices[1])
+    check_audio_devices()
+    sd.play(data, 20000, device="CABLE Input (VB-Audio Virtual Cable), Windows DirectSound")
   if event == "VolumeChanged":
     engine.setProperty('volume', values["VolumeChanged"]/10)
 
