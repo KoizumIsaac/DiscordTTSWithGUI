@@ -3,6 +3,7 @@
 import PySimpleGUI as sg
 import pyttsx3
 import sounddevice as sd
+import soundfile as sf
 
 #Setting up layout
 first_column = [
